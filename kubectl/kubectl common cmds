@@ -29,3 +29,32 @@ Ubuntu cluster :
 2. Expose the deployment as service.
    kubectl expose deployment sample-nginx --port=80 --type=LoadBalancer
    kubectl get services -o wide
+   
+   =======create a deployment using yaml file===========
+   ex yaml file >>>>>>
+   
+   apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+
+Nano name.yaml
+kubectl apply -f name.yaml    (creates the deployment)
+
