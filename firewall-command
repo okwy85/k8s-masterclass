@@ -1,0 +1,1 @@
+gcloud compute firewall-rules create rule36 --allow tcp:30100
