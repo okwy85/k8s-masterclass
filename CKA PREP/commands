@@ -1,0 +1,14 @@
+***create a yaml file via command line for creating image****
+>>kubectl run name --image=image_name --dry-run=client -o yaml  |e.g kubectl run nginx --image=nginx:latest --dry-run=client -o yaml
+***copy yaml file created into a file ***
+>>kubectl run name --image=image_name --dry-run=client -o yaml > filename.yaml  |e.g kubectl run nginx --image=nginx:latest --dry-run=client -o yaml > okwy.yaml
+***create the image by running the yaml file ***
+>>kubectl create -f filename.yaml |e.g kubectl create -f okwy.yaml
+
+***to scale up a replica set from 3-6 in 3 ways ****
+a. update the number of replicas on the definition yaml file then run >>> kubectl replace -f filename.yaml
+b. on the command line run >>>kubectl scale --replicas=6 -f filename.yaml | this does not result in the replicaset being automatically updated in the file
+c. on the command line run >>>kubectl scale --replicas=6 -f replicasets nameofreplicasets | this does not result in the replicaset being automatically updated in the file
+
+***to edit a resource ****
+use kubectl edit resource resourcename | e.g kubectl edit replicaset new-relicaset-1
