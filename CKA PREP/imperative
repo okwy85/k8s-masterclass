@@ -1,0 +1,19 @@
+=====create pod ======
+k run nginx --image=nginx nginx
+
+====create deployment =====
+k create deployment nginx --image=nginx nginx
+
+=====create service ==========
+k expose deployment nginx --port 80
+
+=====to edit an object on a deployment======
+k edit deployment nginx | only edits the live object and not the manifest yaml file
+k replace -f nginx.yaml | updates the manifest yaml file with the changes made with the k edit
+k replace --force -f nginx.yaml | completely deletes the previous manifest file and replaces with the updated/edited manifest file
+
+====scale a replicaset========
+k scale deployment nginx --replicas=5
+
+===== to update an image on a deployment======
+k set image deployment nginx nginx=nginx:1.18
