@@ -1,0 +1,28 @@
+taint is placed on a node to only allow pods with its toleration to be placed on it
+toleration is placed on pods to specify/allow pods to be placed on a tainted node.
+
+>>>k taint nodes node-name key=value:taint-effect
+
+taint-effect specifies what happens to the nodes if it does not tolerate the taint. There are 3 effects. 1 is Noschedule 2. is PreferNoSchedule and 3 is NoExecute
+
+e.g >>> taint nodes node1 app=blue:NoSchedule
+
+Tolerations: is added to pods. to add toleration pull up the pod definition file
+
+====pod defintion yaml====
+ApiVersion: v1
+Kind: pod
+Metadata:
+   Name: mypod
+Spec:
+   Containers:
+     - Name: Nginx
+       image: Nginx:Latest
+   Tolerations:
+     - key: "app"
+       Operator: "Equal"
+       Value: "blue"
+       Effect: "NoSchedule"
+       
+taint and toleration does not tell a pod to go to a particular node. It only tells a node what pod can be placed on it. 
+to determine that a pod will go to a particular node, we use node affinity.
