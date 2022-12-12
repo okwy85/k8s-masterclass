@@ -26,3 +26,7 @@ Spec:
        
 taint and toleration does not tell a pod to go to a particular node. It only tells a node what pod can be placed on it. 
 to determine that a pod will go to a particular node, we use node affinity.
+
+====to remove a taint on command line =====
+
+>>k taint nodes [node_name] [taint_name]-
