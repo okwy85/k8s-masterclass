@@ -1,0 +1,10 @@
+to create a node selector, we need to label the node first
+=====to label a node use the following cmd ========
+>>>k label nodes [node_name] [label-key]=[label-value]
+e'g k label nodes node01 size=large
+
+for a complex node requirement e.g to place on any node that is large, medium but not small, node selector is inadequate to meet this hence the need for node affinity
+
+Node affinity type
+-requiredDuringSchedulingIgnoredDuringExecution
+-preferredDuringSchedulingIgnoredDuringExecution
