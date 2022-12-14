@@ -1,0 +1,10 @@
+what we monitor
+a. Node metrics like number of nodes, health
+b. performance metrics: cpu, memory, network and disk utilization
+c. pod level metrics: number of pods, performance of each pods.
+
+K8 has no inbuilt monitoring tool. There are 3rd party monitoring tools like Prometheus, Metric sERVER, elastic stack, data dog, dynatrace
+
+===to vieew performance metrics=====
+k top node
+k top pods
