@@ -1,0 +1,44 @@
+-======Let's create a configmap that the new scheduler will employ using the concept of ConfigMap as a volume.======
+apiVersion: v1
+data:
+  my-scheduler-config.yaml: |
+    apiVersion: kubescheduler.config.k8s.io/v1beta2
+    kind: KubeSchedulerConfiguration
+    profiles:
+      - schedulerName: my-scheduler
+    leaderElection:
+      leaderElect: false
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: my-scheduler-config
+  namespace: kube-system
+  
+  
+ ====Deploy an additional scheduler to the cluster=====
+ 
+  apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: my-scheduler
+  name: my-scheduler
+  namespace: kube-system
+spec:
+  serviceAccountName: my-scheduler
+  containers:
+  - command:
+    - /usr/local/bin/kube-scheduler
+    - --config=/etc/kubernetes/my-scheduler/my-scheduler-config.yaml
+    image: k8s.gcr.io/kube-scheduler:v1.24.0
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: 10259
+        scheme: HTTPS
+      initialDelaySeconds: 15
+    name: kube-second-scheduler
+    readinessProbe:
+      httpGet:
+        path: /healthz
+        port: 10259
