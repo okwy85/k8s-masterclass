@@ -5,6 +5,34 @@ c. pod level metrics: number of pods, performance of each pods.
 
 K8 has no inbuilt monitoring tool. There are 3rd party monitoring tools like Prometheus, Metric sERVER, elastic stack, data dog, dynatrace
 
+=====deploy metrics-server to monitor the PODs and Nodes.======
+
+Pull the git repository for the deployment files.
+>>git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git
+
+Deploy the metrics-server by creating all the components downloaded.
+>>k create -f .
+
 ===to vieew performance metrics=====
 k top node
 k top pods
+
+
+logs in kubernetes
+built like a pod ---using a manifest file e.g event-simulator.yaml
+
+ApiVersion: v1
+Kind: pod
+Metadata:
+   Name: event-simulator-pod
+
+Spec:
+   Containers:
+   - Name: event-simulator
+   - Image: KodeKloud/event-simulator
+   
+>>k create -f envent-simulator.yaml
+
+===to run logs ====
+
+>>> k logs -f event-simulator-pod 
