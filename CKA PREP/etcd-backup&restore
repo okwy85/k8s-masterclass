@@ -1,0 +1,29 @@
+ k get deploy
+    2  k get pods -A
+    3  k describe pod etcd-controlplane -n kube-system #to view the parameters --endpoints (listen-client-urls), --cacert, --cert, --key
+    4  cd etc
+    5  cd /etc
+    6  cd kubernetes
+    7  ls -l
+    8  cd manifests
+    9  ls -l
+   10  cd
+   
+   ****run this command to backup to /opt/snapshot-pre-boot.db *****
+   11  ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379   --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key   snapshot save /opt/snapshot-pre-boot.db
+   
+   *****run this command to restore *******
+   12  ETCDCTL_API=3 etcdctl snapshot restore /opt/snapshot-pre-boot.db --data-dir /var/lib/etcd-from-backup
+   
+   13  cd /etc/kubernetes/manifests    # update the etcd.yaml file with the new data-dir /var/lib/etcd-from-backup
+   14  ls -l
+   15  nano etcd.yaml
+   16  cd
+   17  systemctl daemon-reload
+   18  service etcd restart   >>>if this doesnt work delete the etcd pod. it will recreate itself from the manifest file with the new backup data
+   20  watch "crictl ps | grep etcd"
+
+   22  kubectl delete pod -n kube-system etcd-controlplane
+   23  k get pods -A
+   24  k get all
+   25  history
