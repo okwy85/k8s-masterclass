@@ -7,3 +7,9 @@ docker ps -a | grep etcd >> it will show info about etcd, we can take  the conta
 docker logs container_id  >> logs shows that /etc/kubernetes/pki/etcd/server-certificate.crt doesnt exit
 we verify by going to the directory ls /etc/kubernetes/pki/etcd/ . if server-certificate.crt doesnt exit then we edit the manifest.
 vi /etc/kubernetes/manifests/etcd.yaml
+
+
+to view a certificate
+
+openssl x509 -in file-path.crt -text -noout
+openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text -noout
