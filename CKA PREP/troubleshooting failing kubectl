@@ -1,0 +1,9 @@
+say the kubectl isnt responding
+it means the kubectl utility isnt cpommunicating with the kube-apiserver
+we need to look at the status  of the kubeapi-server since it is a pod running as container on a host
+docker ps -a | grep kube-apiserver >>it will show the container id
+docker logs container_id >>logs show error while dialling TCP 127.0.0.1:2379 which is the IP for etcd-server-port
+docker ps -a | grep etcd >> it will show info about etcd, we can take  the container id
+docker logs container_id  >> logs shows that /etc/kubernetes/pki/etcd/server-certificate.crt doesnt exit
+we verify by going to the directory ls /etc/kubernetes/pki/etcd/ . if server-certificate.crt doesnt exit then we edit the manifest.
+vi /etc/kubernetes/manifests/etcd.yaml
