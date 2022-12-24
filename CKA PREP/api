@@ -1,0 +1,26 @@
+to ascertain the version
+
+>>curl https://kube-master:6443/version
+
+the list of pods
+
+>>curl https://kube-master:6443/api/v1/pods
+
+access your kube-apiserver at >>>curl https://localhost:6443 -k   it will list the available api groups
+
+if it doesnt for some api version then run 
+
+curl https://localhost:6443 -k
+--key admin.key
+--cert admin.crt
+--cacert ca.crt
+
+
+an alternative is to run
+>>>kubectl proxy
+>>curl https://localhost:8001 -k
+
+to see all the supported resources.  >>>curl https://localhost:6443/apis -k | grep "name"
+
+kube proxy: is used to enable connectivity btw pods and servoces across different nodes within the cluster
+kubectl proxy: is an http proxy service created by kubectl utility to access the kubeapi server
