@@ -1,0 +1,7 @@
+openssl genrsa -out okwy.key 2048 >>>>>>>>to generate a key (okwy.key)
+
+openssl req -new -key okwy.key -subj "/CN=okwy" -out okwy.csr >>>>> to generate a certificate signing request okwy.csr
+
+convert the csr to base64
+
+cat okwy.csr | base64 | tr -d "\n"    or cat okwy.csr | base64 -w 0
