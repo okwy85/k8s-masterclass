@@ -1,0 +1,65 @@
+mechanism
+a. Node:
+b. ABAC: Attribute Based Authorization Control.. create a policy for each user specifying what they can or can not do
+c. RBAC: Role Based Authorization Control: create roles with a set of permissions and associate users to the roles. Easier to manage
+d. Webhook: Allows you to manage authorization externally via 3rd party tools
+e. AlwaysAllow: allows all request without any authorization checks
+f. AlwaysDeny: denies all request.
+
+--authorization-mode=AlwaysAllow \\
+
+****how to create a role... done using a role definition file [developer-role.yaml]*****
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: developer
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["get", "create", "list", "update", "delete"]
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["configmap"] # to be able to allow the developer create configMap
+  verbs: ["create"]
+  
+k create -f developer-role.yaml
+
+***to connect the user to the role, we create a role-binding object ****
+devuser-developer-binding.yaml
+
+apiVersion: rbac.authorization.k8s.io/v1
+# This role binding allows "jane" to read pods in the "default" namespace.
+# You need to already have a Role named "developer" in that namespace.
+kind: RoleBinding
+metadata:
+  name: devuser-developer-binding
+  namespace: default
+subjects:
+# You can specify more than one "subject"
+- kind: User
+  name: jane # "name" is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  # "roleRef" specifies the binding to a Role / ClusterRole
+  kind: Role #this must be Role or ClusterRole
+  name: developer # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io
+  
+  
+  k create -f devuser-developer-binding.yaml
+  
+  other commands:
+  >>k get roles
+  >>k get rolebindings
+  >>k describe role developer
+  >>k describe rolebinding devuser-developer-binding
+  
+  to verify if you have accress to a resource
+  >>k auth can-i create deployments
+  >>k auth can-i delete pods
+  
+   to verify if you have accress to a resource as a user
+  >>k auth can-i create deployments --as dev-user
+  >>k auth can-i delete pods --as dev-user
+  
