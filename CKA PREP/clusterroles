@@ -1,0 +1,25 @@
+ k get clusterroles
+    2  k get ClusterRoleBindings
+    3  k get clusterroles --no-headers | wc -l
+    4  k get ClusterRoleBindings --no-headers | wc -l
+    5  k describe clusterrole cluster-admin
+    6  k describe clusterrole cluster-admin | grep namespace
+    7  alias cr = clusterrole
+    8  alias --help
+    9  alias
+   10  alias cr='clusterrole'
+   11  k get cr cluster-admin -o yaml
+   12  k get clusterrole cluster-admin -o yaml 
+   13  k get clusterrole -o wide
+   14  k describe clusterrolebinding cluster-admin
+   15  k create clusterrole --help
+   16  kubectl create clusterrole node-reader --verb='*' --resource=nodes
+   17  kubectl create clusterrolebindings --help
+   18  kubectl create clusterrolebinding --help
+   19  kubectl create clusterrolebinding node-admin --clusterrole=node-reader --user=michelle
+   20  k describe clusterrolebinding node-admin
+   21  kubectl create clusterrole storage-admin --verb='*' --resource=persistentvolumes,storageclasses
+   22  kubectl create clusterrolebinding michelle-storage-admin --clusterrole=storage-admin --user=michelle
+   23  k auth can-i get persistentvolumes --as michelle
+   24  k auth can-i list storageclasses --as michelle
+   25  history
