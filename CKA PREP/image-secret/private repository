@@ -1,0 +1,30 @@
+#to login to your private repository
+>>>docker login private-registry.io
+    username:
+    password:
+
+to the run the image (latest-app) from your private repository
+>>>docker run private-registry.io/app/latest-app
+
+kubectl create secret docker-registry regcred \
+    --docker-server=private-registry.io \
+    --docker-username=registry-user \
+    --docker-password=registry-password \
+    --docker-email=registry-user@org.com
+    
+kubectl create secret docker-registry private-reg-cred --docker-username=dock_user --docker-password=dock_password --docker-server=myprivateregistry.com:5000 --docker-email=dock_user@myprivateregistry.com
+    
+# a declarative file in k8s
+apiVersion: v1
+kind: pod
+Metadata:
+    name: nginx-pod
+Spec:
+   containers:
+   - name: nginx
+   - image: private-registry.io/app/latest-app
+   imagePullSecrets:
+   - name: regcred
+   
+   
+  
