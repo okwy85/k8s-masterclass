@@ -31,7 +31,13 @@
    ip link add v-net-0 type bridge
    
    >>>>>>to bring the bridge network up<<<<<<<<
-   ip link set dev v-net-0 up
+   ip link 
+   >>>>to get ip route from a pod<<<<<<
+   k exec [pod name] -- route -n or k exec [pod name] -- iproute
+   
+   What is the IP Range configured for the services within the cluster?
+   >>>cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep cluster-ip-range
+   
    
    >>>we decide that the bridge network will be on its own subnet, choose any address range 10.244.1.0/24<<<
    
