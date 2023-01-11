@@ -1,0 +1,44 @@
+1 1  k get nodes -A
+    2  k get nodes -A -o wide
+    3  ifconfig
+    4  cat /etc/network/interface
+    5  ls
+    6  cat /etc/network/interfaces
+    7  ip a | grep -B2 
+    8  veth749e90b1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1400
+    9          ether e2:7e:a9:54:c2:cb  txqueuelen 0  (Ethernet)
+   10          RX packets 1223  bytes 116667 (116.6 KB)
+   11          RX errors 0  dropped 0  overruns 0  frame 0
+   12          TX packets 1225  bytes 122316 (122.3 KB)
+   13          TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+   14  controlplane ~ ➜  cat /etc/network/interface
+   15  cat: /etc/network/interface: No such file or directory
+   16  controlplane ~ ✖ ls
+   17  ip a | grep -B2 10.78.12.3
+   18  ssh node01
+   19  ifconfig -a
+   20  ip -a
+   21  ip a
+   22  ip a | grep cni0
+   23  ip r
+   24  netstat -nplt >>Active Internet connections (only servers)
+   25  netstat -anp | grep etcd
+   26  netstat -anp | grep etcd | grep 2379 | wc -l
+   27  history
+   
+   
+   >>>>>>>to creaate a bridge network <<<<<<<<
+   ip link add v-net-0 type bridge
+   
+   >>>>>>to bring the bridge network up<<<<<<<<
+   ip link set dev v-net-0 up
+   
+   >>>we decide that the bridge network will be on its own subnet, choose any address range 10.244.1.0/24<<<
+   
+   >>>>set ip add for the bridge interface<<<<<<<<
+   ip addr add 10.244.1.1/24 dev v-net-0
+   
+   >>>>>>find info about cni pluggin in the ff directory<<<<<<<<<<<<<<<
+   /opt/cni/bin >>>>list of pluggins available
+   
+   /etc/cni/net.d >>>>> pluggin configured
